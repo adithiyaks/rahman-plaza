@@ -1,0 +1,6 @@
+{
+  "name": "Rahman Plaza",
+  "description": "A highly premium modern luxury digital brand experience for Rahman Plaza in Triplicane, featuring immersive galleries, editorial floor showcases, and interactive branch microsites.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
