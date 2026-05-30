@@ -181,7 +181,7 @@ export default function Hero({ onExploreClick, onNavigateToBranch }: HeroProps) 
               </h2>
 
               {/* RAHMAN PLAZA */}
-              <h1 className="text-3xl sm:text-5xl font-extralight tracking-[0.2em] text-[#f5f5f4] uppercase mt-1 select-none font-sans" style={{ textShadow: '0 0 20px rgba(255,255,255,0.1)' }}>
+              <h1 className="text-3xl sm:text-5xl font-medium tracking-[0.2em] text-[#f5f5f4] uppercase mt-1 select-none font-sans" style={{ textShadow: '0 0 20px rgba(255,255,255,0.1)' }}>
                 RAHMAN <span className="font-serif italic text-[#c5a059]">PLAZA</span>
               </h1>
 

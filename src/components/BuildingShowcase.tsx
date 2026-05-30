@@ -330,7 +330,7 @@ export default function BuildingShowcase({ onSelectBranch }: BuildingShowcasePro
                 delay={100}
                 animateBy="words"
                 direction="bottom"
-                className="text-4xl sm:text-6xl md:text-7xl font-light tracking-tight text-[#f5f5f4] uppercase font-sans text-center justify-center leading-[1.1] mb-6"
+                className="text-4xl sm:text-6xl md:text-7xl font-medium tracking-tight text-[#f5f5f4] uppercase font-sans text-center justify-center leading-[1.1] mb-6"
               />
               <p className="text-sm sm:text-base font-serif italic text-neutral-300 max-w-xl mx-auto leading-relaxed mt-2 glow-text-gold">
                 “A visual testament of luxury and scale, standing proudly in Triplicane as a monument of five decades of retail craft.”
