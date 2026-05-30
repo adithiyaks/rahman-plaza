@@ -10,11 +10,12 @@ import SmoothScroll from './components/SmoothScroll';
 import Hero from './components/Hero';
 import BrandIntro from './components/BrandIntro';
 import BuildingShowcase from './components/BuildingShowcase';
-import BranchSelection from './components/BranchSelection';
 import PlazaMicrosite from './components/PlazaMicrosite';
 import PalladiumMicrosite from './components/PalladiumMicrosite';
 import KhalifaMicrosite from './components/KhalifaMicrosite';
 import Footer from './components/Footer';
+import Testimonials from './components/Testimonials';
+import CTA from './components/CTA';
 
 export default function App() {
   const [activeView, setActiveView] = useState<'home' | 'plaza' | 'palladium' | 'khalifa'>('home');
@@ -41,7 +42,7 @@ export default function App() {
 
   return (
     <SmoothScroll>
-      <div className="bg-[#0a0a0a] min-h-screen text-[#f5f5f4] antialiased overflow-x-hidden selection:bg-[#c5a059] selection:text-black" id="app-container">
+      <div className="bg-[#0a0a0a] min-h-screen text-[#f5f5f4] antialiased overflow-x-clip selection:bg-[#c5a059] selection:text-black" id="app-container">
         
         {/* Floating Luxurious Navbar */}
         <Navbar activeView={activeView} onNavigate={handleNavigate} />
@@ -67,11 +68,14 @@ export default function App() {
                 {/* 2. Editorial Legacy Brand Intro */}
                 <BrandIntro />
 
-                {/* 2.5. Full Screen Building Scroll Showcase */}
-                <BuildingShowcase />
+                {/* 2.5. Full Screen Building Scroll Showcase & Shop Reveal */}
+                <BuildingShowcase onSelectBranch={handleBranchSelect} />
 
-                {/* 3. Core Branch Select Grid Cards */}
-                <BranchSelection onSelectBranch={handleBranchSelect} />
+                {/* 3. Premium Patron Testimonials */}
+                <Testimonials />
+
+                {/* 4. Interactive Call to Action & VIP Concierge Booking */}
+                <CTA />
               </motion.main>
             )}
 

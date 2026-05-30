@@ -9,9 +9,27 @@ import { BranchId } from '../types';
 
 interface FooterProps {
   onNavigate: (view: 'home' | 'plaza' | 'palladium' | 'khalifa') => void;
+  variant?: 'default' | 'compact';
 }
 
-export default function Footer({ onNavigate }: FooterProps) {
+export default function Footer({ onNavigate, variant = 'default' }: FooterProps) {
+  if (variant === 'compact') {
+    return (
+      <footer 
+        className="w-full py-4 text-[10px] font-mono text-neutral-500 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-2 select-none bg-[#0a0a0a]"
+        id="site-footer-compact"
+      >
+        <div>
+          <p>© 2026 Rahman Plaza Group. Celebrating 52 Years of Unbroken Trust.</p>
+        </div>
+        <div className="flex gap-6">
+          <span className="uppercase">Chennai, TN, India</span>
+          <span>Est. 1974</span>
+        </div>
+      </footer>
+    );
+  }
+
   return (
     <footer 
       className="bg-[#0a0a0a] text-neutral-400 border-t border-white/5 py-16 px-6 sm:px-12 w-full select-none"
