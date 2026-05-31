@@ -127,7 +127,7 @@ export default function BranchSelection({ onSelectBranch }: BranchSelectionProps
                 style={{
                   boxShadow: cardStyle.shd,
                 }}
-                className={`relative rounded-3xl ${cardStyle.bg} border ${cardStyle.border} overflow-hidden cursor-pointer flex flex-col justify-between h-[520px] transition-all duration-500 backdrop-blur-md group pointer-events-auto`}
+                className={`relative rounded-3xl ${cardStyle.bg} border ${cardStyle.border} overflow-hidden cursor-pointer flex flex-col justify-between h-[420px] sm:h-[480px] md:h-[520px] transition-all duration-500 backdrop-blur-md group pointer-events-auto`}
                 id={`branch-card-${branch.id}`}
               >
                 {/* ADVANCED REFLECTION HIGHLIGHT */}

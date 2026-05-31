@@ -5,9 +5,16 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Award, Compass, Star, ArrowLeftRight, Heart, Sparkles, ChevronRight, X } from 'lucide-react';
+import { Award, Compass, Star, ArrowLeftRight, Heart, Sparkles, ChevronRight, ChevronLeft, X } from 'lucide-react';
 import { PALLADIUM_COLLECTIONS } from '../data';
 import { JewelryCollection } from '../types';
+
+const GALLERY_IMAGES = [
+  '/g1.png',
+  '/g2.jpeg',
+  '/g3.png',
+  '/g4.jpeg'
+];
 
 interface PalladiumMicrositeProps {
   onBackToOverview: () => void;
@@ -16,6 +23,10 @@ interface PalladiumMicrositeProps {
 export default function PalladiumMicrosite({ onBackToOverview }: PalladiumMicrositeProps) {
   const [selectedColl, setSelectedColl] = useState<JewelryCollection | null>(null);
   const [likes, setLikes] = useState<Record<string, boolean>>({});
+  const [galleryIndex, setGalleryIndex] = useState(0);
+
+  const nextImage = () => setGalleryIndex((prev) => (prev + 1) % GALLERY_IMAGES.length);
+  const prevImage = () => setGalleryIndex((prev) => (prev - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length);
 
   const toggleLike = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -29,7 +40,7 @@ export default function PalladiumMicrosite({ onBackToOverview }: PalladiumMicros
     <div className="min-h-screen bg-[#f7eed5] text-[#2b2722] selection:bg-[#a37a3b] selection:text-white">
       
       {/* 1. CINEMATIC HERO */}
-      <section className="relative h-[85vh] w-full flex items-center justify-center overflow-hidden bg-[#0a0a0a]">
+      <section className="relative h-[70vh] sm:h-[85vh] w-full flex items-center justify-center overflow-hidden bg-[#0a0a0a]">
         {/* Background Layer */}
         <div className="absolute inset-0 pointer-events-none">
           <img
@@ -58,7 +69,7 @@ export default function PalladiumMicrosite({ onBackToOverview }: PalladiumMicros
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-6xl md:text-7xl font-light font-serif tracking-[0.15em] uppercase text-stone-100 leading-none mb-6">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-light font-serif tracking-[0.15em] uppercase text-stone-100 leading-none mb-6">
               THE <span className="text-[#c5a059] font-extrabold italic font-sans">PALLADIUM</span>
             </h1>
 
@@ -123,7 +134,81 @@ export default function PalladiumMicrosite({ onBackToOverview }: PalladiumMicros
         </div>
       </section>
 
-      {/* 3. FEATURING COLLECTIONS SECTION */}
+      {/* 3. EXCLUSIVE SALON GALLERY SECTION */}
+      <section className="py-24 px-6 sm:px-12 max-w-7xl mx-auto border-t border-[#a37a3b]/10 bg-transparent overflow-hidden" id="gallery-section">
+        <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
+          <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-[#a37a3b] font-bold block mb-2">Exclusive Salon</span>
+          <h2 className="text-3xl sm:text-5xl font-serif text-[#1c1a17] tracking-tight">The Royal Gallery</h2>
+          <p className="text-sm text-[#5c554b] font-light mt-2 max-w-md mx-auto">
+            A glimpse into our private viewing rooms and exquisite craftsmanship.
+          </p>
+        </div>
+
+        <div className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] flex items-center justify-center">
+          {GALLERY_IMAGES.map((img, index) => {
+            let diff = index - galleryIndex;
+            if (diff > GALLERY_IMAGES.length / 2) diff -= GALLERY_IMAGES.length;
+            if (diff < -GALLERY_IMAGES.length / 2) diff += GALLERY_IMAGES.length;
+
+            const isCenter = diff === 0;
+            const isLeft = diff === -1;
+            const isRight = diff === 1;
+            const isBack = Math.abs(diff) >= 2;
+
+            let x = "0%";
+            let scale = 1;
+            let zIndex = 10;
+            let opacity = 1;
+            let blur = 0;
+
+            if (isLeft) {
+              x = "-65%";
+              scale = 0.75;
+              zIndex = 5;
+              opacity = 0.5;
+              blur = 8;
+            } else if (isRight) {
+              x = "65%";
+              scale = 0.75;
+              zIndex = 5;
+              opacity = 0.5;
+              blur = 8;
+            } else if (isBack) {
+              x = "0%";
+              scale = 0.5;
+              zIndex = 1;
+              opacity = 0;
+              blur = 10;
+            }
+
+            return (
+              <motion.div
+                key={index}
+                animate={{ x, scale, zIndex, opacity, filter: `blur(${blur}px)` }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute w-[80%] sm:w-[50%] md:w-[45%] lg:w-[35%] aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl border-[6px] border-white bg-white"
+                style={{ transformOrigin: 'center center' }}
+              >
+                <img src={img} className="w-full h-full object-cover" alt={`Gallery image ${index + 1}`} />
+                
+                {/* Navigation arrows overlay on the center image */}
+                {isCenter && (
+                  <div className="absolute inset-0 flex items-center justify-between px-4 opacity-0 hover:opacity-100 transition-opacity duration-300">
+                    <button onClick={prevImage} className="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/60 transition-colors cursor-pointer border border-white/20 shadow-lg">
+                      <ChevronLeft className="h-5 w-5" />
+                    </button>
+                    <button onClick={nextImage} className="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/60 transition-colors cursor-pointer border border-white/20 shadow-lg">
+                      <ChevronRight className="h-5 w-5" />
+                    </button>
+                  </div>
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* 4. FEATURING COLLECTIONS SECTION */}
       <section className="py-24 px-6 sm:px-12 max-w-7xl mx-auto border-t border-[#a37a3b]/10 bg-transparent" id="collections-grid-section">
         <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
           <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-[#a37a3b] font-bold block mb-2">Jewelry Collection Exhibits</span>
@@ -142,10 +227,10 @@ export default function PalladiumMicrosite({ onBackToOverview }: PalladiumMicros
                 key={coll.id}
                 whileHover={{ y: -8 }}
                 onClick={() => setSelectedColl(coll)}
-                className="rounded-3xl bg-white/60 border border-[#a37a3b]/10 hover:border-[#a37a3b]/30 hover:shadow-xl hover:shadow-[#a37a3b]/5 overflow-hidden cursor-pointer flex flex-col justify-between h-[480px] p-4 relative group"
+                className="rounded-3xl bg-white/60 border border-[#a37a3b]/10 hover:border-[#a37a3b]/30 hover:shadow-xl hover:shadow-[#a37a3b]/5 overflow-hidden cursor-pointer flex flex-col justify-between h-auto min-h-[380px] sm:h-[480px] p-4 relative group"
               >
                 {/* Image panel */}
-                <div className="relative rounded-2xl overflow-hidden h-[60%] bg-stone-100">
+                <div className="relative rounded-2xl overflow-hidden h-48 sm:h-[60%] bg-stone-100">
                   <img
                     src={coll.image}
                     alt={coll.title}
@@ -204,7 +289,7 @@ export default function PalladiumMicrosite({ onBackToOverview }: PalladiumMicros
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-[#fcfaf5]/80 backdrop-blur-md flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-[#fcfaf5]/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4"
             id="coll-spec-modal"
           >
             {/* Elegant luxury glass modal container */}
@@ -212,7 +297,7 @@ export default function PalladiumMicrosite({ onBackToOverview }: PalladiumMicros
               initial={{ scale: 0.95, y: 15 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 15 }}
-              className="bg-white/95 border border-[#a37a3b]/20 rounded-3xl w-full max-w-xl p-6 sm:p-8 shadow-[0_30px_70px_rgba(163,122,59,0.12)] relative"
+              className="bg-white/95 border border-[#a37a3b]/20 rounded-3xl w-full max-w-xl p-5 sm:p-8 shadow-[0_30px_70px_rgba(163,122,59,0.12)] relative max-h-[90vh] overflow-y-auto"
             >
               {/* Close Button */}
               <button

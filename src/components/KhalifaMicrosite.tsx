@@ -32,7 +32,7 @@ export default function KhalifaMicrosite({ onBackToOverview }: KhalifaMicrositeP
     <div className="min-h-screen bg-[#1a120d] text-[#f5f5f4] selection:bg-[#d4a55a] selection:text-black font-sans">
       
       {/* 1. CINEMATIC STREETWEAR HERO */}
-      <section className="relative h-[80vh] w-full flex items-center justify-start overflow-hidden px-6 sm:px-12 md:px-20">
+      <section className="relative h-[70vh] sm:h-[80vh] w-full flex items-center justify-start overflow-hidden px-6 sm:px-12 md:px-20">
         {/* Background Image Parallax with Neon white overlays */}
         <div className="absolute inset-0 pointer-events-none">
           <img
@@ -68,7 +68,7 @@ export default function KhalifaMicrosite({ onBackToOverview }: KhalifaMicrositeP
               )}
             </div>
 
-            <h1 className="text-4xl sm:text-7xl md:text-8xl font-black tracking-tighter uppercase leading-none text-white font-sans-mono">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase leading-none text-white font-sans-mono">
               RAHMAN <span className="block italic font-light text-[0.8em] font-serif tracking-normal text-[#d4a55a]">KHALIFA</span>
             </h1>
 
@@ -107,7 +107,7 @@ export default function KhalifaMicrosite({ onBackToOverview }: KhalifaMicrositeP
         </div>
 
         {/* 4 Cards Grid Layout with Bold Typography */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {KHALIFA_FOOTWEAR.map((item) => {
             const isFav = !!favorites[item.id];
             return (
@@ -115,10 +115,10 @@ export default function KhalifaMicrosite({ onBackToOverview }: KhalifaMicrositeP
                 key={item.id}
                 whileHover={{ y: -6 }}
                 onClick={() => setSelectedFootwear(item)}
-                className="bg-[#140e09]/80 border border-[#d4a55a]/8 hover:border-[#d4a55a]/25 rounded-xl overflow-hidden cursor-pointer flex flex-col justify-between h-[450px] p-3 relative group transition-all duration-300"
+                className="bg-[#140e09]/80 border border-[#d4a55a]/8 hover:border-[#d4a55a]/25 rounded-xl overflow-hidden cursor-pointer flex flex-col justify-between h-auto min-h-[350px] sm:h-[450px] p-3 relative group transition-all duration-300"
               >
                 {/* Image Section */}
-                <div className="relative overflow-hidden rounded-lg bg-[#0f0a07] h-56 flex items-center justify-center">
+                <div className="relative overflow-hidden rounded-lg bg-[#0f0a07] h-40 sm:h-56 flex items-center justify-center">
                   <img
                     src={item.image}
                     alt={item.name}
@@ -220,7 +220,7 @@ export default function KhalifaMicrosite({ onBackToOverview }: KhalifaMicrositeP
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-[#1a120d]/95 backdrop-blur-md flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-[#1a120d]/95 backdrop-blur-md flex items-center justify-center p-3 sm:p-4"
             id="footwear-spec-modal"
           >
             {/* Dark industrial metal themed popup container */}
@@ -228,7 +228,7 @@ export default function KhalifaMicrosite({ onBackToOverview }: KhalifaMicrositeP
               initial={{ scale: 0.95, y: 15 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 15 }}
-              className="bg-[#1a120d] border border-[#d4a55a]/15 rounded-2xl w-full max-w-xl p-6 sm:p-8 shadow-[0_30px_70px_rgba(212,165,90,0.06)] relative"
+              className="bg-[#1a120d] border border-[#d4a55a]/15 rounded-2xl w-full max-w-xl p-5 sm:p-8 shadow-[0_30px_70px_rgba(212,165,90,0.06)] relative max-h-[90vh] overflow-y-auto"
             >
               {/* Close Button */}
               <button
