@@ -184,7 +184,7 @@ export default function Hero({ onExploreClick, onNavigateToBranch, theme }: Hero
 
               {/* TAMIL TITLE */}
               <h2 className="text-xl sm:text-3xl font-bold tracking-wide mt-2 text-gold-accent select-none font-sans" style={{ textShadow: '0 0 15px var(--glow-gold)' }}>
-                ரஹ்මාන් பிளாஸா
+                ரஹ்மான் பிளாசா
               </h2>
 
               {/* RAHMAN PLAZA */}

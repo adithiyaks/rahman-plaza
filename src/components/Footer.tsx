@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Mail, Phone, MapPin, Award, Compass, Landmark, Heart } from 'lucide-react';
+import { Mail, Phone, MapPin, Award, Compass, Landmark, Heart, Instagram, Facebook, MessageCircle } from 'lucide-react';
 import { BranchId } from '../types';
 
 interface FooterProps {
@@ -100,18 +100,32 @@ export default function Footer({ onNavigate, variant = 'default', theme }: Foote
                 <MapPin className="h-4 w-4 text-gold-accent shrink-0" />
                 <p>
                   No. 128, Rahman Plaza Rd, Triplicane, Chennai — 600005, Tamil Nadu, India.
+                  <a href="https://www.google.com/maps/place/Rahman+Plaza/@13.0589441,80.2725717,17z/data=!3m1!4b1!4m6!3m5!1s0x3a52689fa38b54df:0x23094a4f8fdab82c!8m2!3d13.0589441!4d80.2751466!16s%2Fg%2F1td3pxr2?entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" className="underline hover:text-gold-accent ml-2 text-xs font-medium inline-block mt-1">
+                    GET DIRECTIONS
+                  </a>
                 </p>
               </div>
               <div className="flex gap-2.5 items-center">
                 <Phone className="h-4 w-4 text-gold-accent shrink-0" />
-                <a href="tel:+914428540000" className="hover:text-gold-accent transition-colors">
-                  +91 (44) 2854-0000 / +91 (44) 2854-1111
+                <a href="tel:+914442155272" className="hover:text-gold-accent transition-colors">
+                  044-42155272
                 </a>
               </div>
               <div className="flex gap-2.5 items-center">
                 <Mail className="h-4 w-4 text-gold-accent shrink-0" />
                 <a href="mailto:info@rahmanplaza.com" className="hover:text-gold-accent transition-colors">
                   info@rahmanplaza.com
+                </a>
+              </div>
+              <div className="flex gap-4 items-center pt-2 mt-2">
+                <a href="https://www.instagram.com/rahmanpalladium" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-border-primary flex items-center justify-center hover:bg-gold-accent/10 hover:border-gold-accent/30 transition-all text-text-muted hover:text-gold-accent" aria-label="Instagram">
+                  <Instagram className="h-3.5 w-3.5" />
+                </a>
+                <a href="https://www.facebook.com/people/Rahman-Palladium/61587511828514/?ref=PROFILE_EDIT_xav_ig_profile_page_web" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-border-primary flex items-center justify-center hover:bg-gold-accent/10 hover:border-gold-accent/30 transition-all text-text-muted hover:text-gold-accent" aria-label="Facebook">
+                  <Facebook className="h-3.5 w-3.5" />
+                </a>
+                <a href="https://api.whatsapp.com/message/TYQIYELJTZJFB1?autoload=1&app_absent=0&utm_source=ig" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-border-primary flex items-center justify-center hover:bg-gold-accent/10 hover:border-gold-accent/30 transition-all text-text-muted hover:text-gold-accent" aria-label="WhatsApp">
+                  <MessageCircle className="h-3.5 w-3.5" />
                 </a>
               </div>
             </div>

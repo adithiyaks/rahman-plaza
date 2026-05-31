@@ -163,12 +163,12 @@ export default function CTA({ theme }: CTAProps) {
                 <div className="grid grid-cols-2 gap-3 mb-6">
                   {/* Phone */}
                   <a 
-                    href="tel:+914428447474" 
+                    href="tel:+914442155272" 
                     className="flex flex-col p-3 rounded-2xl bg-bg-primary/50 border border-border-primary hover:border-gold-accent/30 transition-all duration-300"
                   >
                     <Phone className="h-4 w-4 text-gold-accent mb-1" />
                     <span className="text-[9px] font-mono text-text-muted uppercase tracking-widest">Call Desk</span>
-                    <span className="text-[10px] font-semibold text-text-strong mt-0.5">+91 44 2844 7474</span>
+                    <span className="text-[10px] font-semibold text-text-strong mt-0.5">044-42155272</span>
                   </a>
                   {/* Email */}
                   <a 

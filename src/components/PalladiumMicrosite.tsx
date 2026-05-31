@@ -186,7 +186,7 @@ export default function PalladiumMicrosite({ onBackToOverview }: PalladiumMicros
                 key={index}
                 animate={{ x, scale, zIndex, opacity, filter: `blur(${blur}px)` }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute w-[80%] sm:w-[50%] md:w-[45%] lg:w-[35%] aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl border-[6px] border-white bg-white"
+                className="absolute w-[85%] sm:w-[60%] md:w-[55%] lg:w-[45%] aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl border-[6px] border-white bg-white"
                 style={{ transformOrigin: 'center center' }}
               >
                 <img src={img} className="w-full h-full object-cover" alt={`Gallery image ${index + 1}`} />
@@ -362,7 +362,7 @@ export default function PalladiumMicrosite({ onBackToOverview }: PalladiumMicros
                   Back to Salon
                 </button>
                 <a
-                  href="tel:+914428540000"
+                  href="tel:+914442155272"
                   className="flex-1 rounded-xl bg-[#a37a3b] text-white text-center text-xs font-mono tracking-widest uppercase py-3.5 font-semibold hover:bg-[#8c662f] transition-all shadow-lg hover:shadow-[#a37a3b]/20"
                 >
                   Request Private Viewing
