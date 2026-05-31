@@ -104,7 +104,7 @@ export default function BranchSelection({ onSelectBranch }: BranchSelectionProps
                   };
                 case 'khalifa':
                   return {
-                    bg: 'bg-[#0d0d0d]/90',
+                    bg: 'bg-[#2d1c12]/90',
                     border: 'border-white/5 hover:border-white/20',
                     shd: isHovered ? '0 20px 40px rgba(255, 255, 255, 0.04)' : 'none',
                     overlay: 'bg-[#1a1a1a]/40',

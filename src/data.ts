@@ -41,14 +41,91 @@ export const BRANCHES: Branch[] = [
 export const PLAZA_FLOORS: Floor[] = [
   {
     id: 1,
-    level: '1st Floor',
-    name: 'Travel & Modern Accessories',
-    tagline: 'The Art of Exquisite Voyage',
-    description: 'A curated arena featuring ultra-durable luggage, professional designer backpacks, and handcrafted top-grain leather travel bags designed for the global citizen.',
-    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=800', // high-end leather bags
-    categories: ['Smart Polycarbonate Suitcases', 'Executive Leather Briefcases', 'Premium Travel Rucksacks', 'Handcrafted Accessories'],
+    level: 'Floor 01',
+    name: 'The Grand Atrium',
+    tagline: 'TRAVEL LUGGAGE & LIFESTYLE ACCESSORIES',
+    description: 'Explore our signature collection of premium travel luggage, backpacks, handbags, fine accessories, and daily utility essentials.',
+    image: '/floor1.jpg',
+    categories: ['Travel Luggage', 'Backpacks & Bags', 'Women\'s Handbags', 'Daily Utilities'],
+    brands: ['Samsonite', 'American Tourister', 'Delsey Paris', 'Wildcraft', 'VIP'],
+    materials: ['Polycarbonate', 'Full-Grain Leather', 'Ballistic Nylon', 'Stainless Steel'],
+    highlights: ['International lifetime warranty on luggage', 'Custom leather monogram embossing', 'Waterproofing testing zones'],
+    details: [
+      {
+        name: 'Premium Hard Shell Cabin Trolley 20"',
+        category: 'Travel Luggage',
+        brands: ['Samsonite'],
+        materials: ['Polycarbonate'],
+        description: 'Ultra-durable, lightweight cabin trolley featuring TSA-approved locks, 360-degree double spinner wheels, and compression divider.'
+      }
+    ]
+  },
+  {
+    id: 2,
+    level: 'Floor 02',
+    name: 'Heritage Weaves',
+    tagline: 'TRADITIONAL & BRIDAL WEAR',
+    description: 'Step into Chennai\'s finest bridal sanctuary featuring authentic handloom silks, custom gold embroidery, and royal weaves.',
+    image: '/floor2.jpg',
+    categories: ['Handloom Kancheepuram Silks', 'Bespoke Bridal Lehengas', 'Designer Anarkalis', 'Regal Sarees'],
+    brands: ['Kancheepuram Weaver Guilds', 'Rahman Traditions', 'Designer Exclusive Series'],
+    materials: ['Pure Mulberry Silk', '24k Liquid Gold Zari', 'Premium Georgette'],
+    highlights: ['Authentic Silk Mark certified weaves', 'Exclusive private bridal consultation lounges', 'Custom zardozi and thread embroidery options'],
+    details: [
+      {
+        name: 'The Subarna Royal Kancheepuram Saree',
+        category: 'Kancheepuram Silk Saree',
+        brands: ['Kancheepuram Weaver Guilds'],
+        materials: ['Pure double-warp Mulberry silk', 'Pure gold zari weave'],
+        description: 'Handwoven over 3 months, showcasing classical temple borders, rich heavy pallu with fine golden thread patterns, and authentic certification.'
+      },
+      {
+        name: 'Mayur Pankh Zardozi Lehenga',
+        category: 'Bespoke Bridal Lehengas',
+        brands: ['Rahman Traditions'],
+        materials: ['Heavy velvet backing', 'Genuine silver and gold wire embroidery'],
+        description: 'An exquisite handconcieved bridal lehenga with mesmerizing peacock motifs, encrusted with tiny semi-precious beads and detailed dabka work.'
+      }
+    ]
+  },
+  {
+    id: 3,
+    level: 'Floor 03',
+    name: 'Modern Elegance',
+    tagline: 'CONTEMPORARY MENSWEAR & FORMAL',
+    description: 'Bespoke tailoring meets high-end contemporary menswear. Discover luxurious fabrics, custom suits, and formal aesthetics.',
+    image: '/floor3.jpg',
+    categories: ['Bespoke Custom Suits', 'Corporate Formal Wear', 'Fine Italian Textiles'],
+    brands: ['Raymond Premium Select', 'Siyaram\'s Royal Silk', 'Rahman Tailoring Lab', 'Reid & Taylor'],
+    materials: ['Super 150s Merino Wool', 'Egyptian Giza Cotton', 'Pure Irish Linen'],
+    highlights: ['On-site master tailors for perfect adjustments', 'Measurement profile saved digitally', 'Bespoke fabric curations directly from Milan'],
+    details: [
+      {
+        name: 'The Grand Windsor Blazer',
+        category: 'Bespoke Custom Suits',
+        brands: ['Rahman Tailoring Lab'],
+        materials: ['100% Italian Super 150s Wool', 'Real horn buttons'],
+        description: 'A masterpiece blazer tailored individually to your shoulder slope, posture, and measurements. Half-canvased for natural movement and elegant drape.'
+      },
+      {
+        name: 'Giza Imperial Formal Shirt',
+        category: 'Corporate Formal Wear',
+        brands: ['Raymond Premium Select'],
+        materials: ['Egyptian Giza 92 Cotton', 'Mother-of-pearl buttons'],
+        description: 'High thread-count premium white shirt with clean french cuffs, offering silk-like touch, incredible durability, and high breathability.'
+      }
+    ]
+  },
+  {
+    id: 4,
+    level: 'Floor 04',
+    name: 'The Artisans\' Enclave',
+    tagline: 'HANDCRAFTED LEATHER & ACCESSORIES',
+    description: 'A curated arena featuring ultra-durable luxury luggage, travel gear, and handconcieved top-grain leather bags.',
+    image: '/floor4.jpg',
+    categories: ['Smart Polycarbonate Suitcases', 'Executive Leather Briefcases', 'Premium Travel Rucksacks'],
     brands: ['Samsonite Black Label', 'American Tourister', 'Delsey Paris', 'Rahman Signature', 'Victorinox'],
-    materials: ['Shatterproof Polycarbonate', 'Ballistic Kevlar Nylon', 'Full-Grain Tuscan Leather', 'Solid Brass Closures'],
+    materials: ['Shatterproof Polycarbonate', 'Ballistic Kevlar Nylon', 'Full-Grain Tuscan Leather'],
     highlights: ['Bespoke monogram engraving available', 'International lifetime warranty products', 'Intelligent built-in GPS weight tracking'],
     details: [
       {
@@ -75,108 +152,17 @@ export const PLAZA_FLOORS: Floor[] = [
     ]
   },
   {
-    id: 2,
-    level: '2nd Floor',
-    name: 'Elite Tailoring & Menswear',
-    tagline: 'Defining the Modern Gentleman',
-    description: 'Impeccable bespoke tailoring meets high-end contemporary menswear. Featuring luxurious international fabrics, tailored suits, corporate uniforms, and traditional regal apparel.',
-    image: 'https://images.unsplash.com/photo-1593032465175-481ac7f401a0?q=80&w=800', // designer suits
-    categories: ['Bespoke Custom Suits', 'Corporate Formal Wear', 'Traditional Regal Sherwanis', 'Fine Italian Textiles'],
-    brands: ['Raymond Premium Select', 'Siyaram\'s Royal Silk', 'Rahman Tailoring Lab', 'Reid & Taylor'],
-    materials: ['Super 150s Merino Wool', 'Egyptian Giza Cotton', 'Pure Irish Linen', 'Benares Mulberry Silk'],
-    highlights: ['On-site master tailors for perfect adjustments', 'Measurement profile saved digitally', 'Bespoke fabric curations directly from Milan'],
-    details: [
-      {
-        name: 'The Grand Windsor Blazer',
-        category: 'Bespoke Custom Suits',
-        brands: ['Rahman Tailoring Lab'],
-        materials: ['100% Italian Super 150s Wool', 'Real horn buttons'],
-        description: 'A masterpiece blazer tailored individually to your shoulder slope, posture, and measurements. Half-canvased for natural movement and elegant drape.'
-      },
-      {
-        name: 'Giza Imperial Formal Shirt',
-        category: 'Corporate Formal Wear',
-        brands: ['Raymond Premium Select'],
-        materials: ['Egyptian Giza 92 Cotton', 'Mother-of-pearl buttons'],
-        description: 'High thread-count premium white shirt with clean french cuffs, offering silk-like touch, incredible durability, and high breathability.'
-      }
-    ]
-  },
-  {
-    id: 3,
-    level: '3rd Floor',
-    name: 'Heritage Bridal & Womenswear',
-    tagline: 'A Celebration of Royal Weaves',
-    description: 'An elegant gallery of high-fashion womenswear, from heavy designer bridal lehengas with hand-embroidered zardozi to authentic handloom Kancheepuram silk sarees.',
-    image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=800', // Gorgeous bridal fabric / saree
-    categories: ['Handloom Kancheepuram Silk Saree', 'Bespoke Bridal Lehengas', 'Designer Anarkalis & Sarees', 'Contemporary Fusion Gowns'],
-    brands: ['Kancheepuram Weaver Guilds', 'Rahman Traditions', 'Designer Exclusive Series'],
-    materials: ['Pure Mulberry Silk', '24k Liquid Gold Zar', 'Premium Georgette', 'Hand-spun organza'],
-    highlights: ['Authentic Silk Mark certified weaves', 'Exclusive private bridal consultation lounges', 'Custom zardozi and thread embroidery options'],
-    details: [
-      {
-        name: 'The Subarna Royal Kancheepuram Saree',
-        category: 'Kancheepuram Silk Saree',
-        brands: ['Kancheepuram Weaver Guilds'],
-        materials: ['Pure double-warp Mulberry silk', 'Pure gold zari weave'],
-        description: 'Handwoven over 3 months, showcasing classical temple borders, rich heavy pallu with fine golden thread patterns, and authentic certification.'
-      },
-      {
-        name: 'Mayur Pankh Zardozi Lehenga',
-        category: 'Bespoke Bridal Lehengas',
-        brands: ['Rahman Traditions'],
-        materials: ['Heavy velvet backing', 'Genuine silver and gold wire embroidery'],
-        description: 'An exquisite handconcieved bridal lehenga with mesmerizing peacock motifs, encrusted with tiny semi-precious beads and detailed dabka work.'
-      }
-    ]
-  },
-  {
-    id: 4,
-    level: '4th Floor',
-    name: 'Grand Kids & Toy Planet',
-    tagline: 'Where Magic and Quality Unite',
-    description: 'A cheerful modern world presenting exclusive kidswear collections for precious celebrations, along with premium safe wooden toys and interactive play stations.',
-    image: 'https://images.unsplash.com/photo-1515488042361-404e9250afef?q=80&w=800', // luxurious kidswear/toys
-    categories: ['Kids Festive Couture', 'Organic Baby Apparel', 'Premium Educational Wooden Toys', 'Deluxe Strollers & Nursery'],
-    brands: ['Rahman Kids Couture', 'Chicco Italy', 'Carter\'s Elite', 'Mamas & Papas'],
-    materials: ['Hypoallergenic Organic Cotton', 'Natural Non-Toxic Wooden dyes', 'Premium Bamboo fibers'],
-    highlights: ['Soft-touch organic lining in all kidswear', 'Immersive safe playing zone for toddlers', 'Interactive toy testing counters'],
-    details: [
-      {
-        name: 'The Petit Prince Sherwani Set',
-        category: 'Kids Festive Couture',
-        brands: ['Rahman Kids Couture'],
-        materials: ['Raw silk blend', 'Soft organic cotton inner lining'],
-        description: 'Traditional boys festive sherwani designed with zero-scratch flat stitching to ensure ultimate comfort for infants during festive celebrations.'
-      },
-      {
-        name: 'Nordic Forest Train Set',
-        category: 'Educational Wooden Toys',
-        brands: ['Mamas & Papas'],
-        materials: ['Sustainable beech wood', 'Eco-friendly water dyes'],
-        description: 'A beautiful, minimalist wooden railway collection that boosts cognitive motor skills, painted with soft pastel premium colors.'
-      }
-    ]
-  },
-  {
     id: 5,
-    level: '5th Floor',
-    name: 'Premium Lounge & Lifestyle Accents',
-    tagline: 'The Pinnacle of Personal Taste',
-    description: 'An immersive penthouse experience displaying high-end home accents, a bespoke collector’s horology boutique, fine writing instruments, and an aromatic niche perfumery.',
-    image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=800', // watch / luxury fragrance layout
-    categories: ['Niche Fragrance Boutiques', 'Fine Collector Timepieces', 'Bespoke Fine Stationery', 'Luxury Crystal & Pottery'],
+    level: 'Floor 05',
+    name: 'Platinum Lounge',
+    tagline: 'BESPOKE TAILORING & VIP CONCIERGE',
+    description: 'Our private penthouse salon offering custom tailoring, VIP concierge booking, and elite lifestyle collections.',
+    image: '/floor5.jpg',
+    categories: ['Fine Collector Timepieces', 'Bespoke Fine Stationery', 'Luxury Crystal & Pottery'],
     brands: ['Swarovski Boutique', 'Montblanc Elite', 'Amouage Paris', 'Rahman Living', 'Rado Chronographs'],
-    materials: ['Bohemian Hand-Cut Crystal', 'Macassar Ebony Wood', 'Sterling Silver', 'Rare Essential Oils'],
+    materials: ['Bohemian Hand-Cut Crystal', 'Macassar Ebony Wood', 'Sterling Silver'],
     highlights: ['Custom private fragrance testing room', 'VIP Lounge offering fine South Indian Kaapi', 'Watch engraving and leather strap customizations'],
     details: [
-      {
-        name: 'The Royal Triplicane Attar Blend',
-        category: 'Niche Fragrance Boutiques',
-        brands: ['Amouage Paris', 'Rahman Elite Fragrances'],
-        materials: ['Naturals Sandalwood oil', 'White Oud extract', 'Damask Rose essence'],
-        description: 'An extremely rare concentrated perfume oil honoring the rich history of Triplicane, blending deep warm woods with crisp blooming jasmine.'
-      },
       {
         name: 'Grand Horizon Crystal Decanter',
         category: 'Luxury Crystal & Pottery',
@@ -239,7 +225,7 @@ export const KHALIFA_FOOTWEAR: FootwearItem[] = [
     name: 'Mono-Eclipse Sleek Slides',
     category: 'Premium Leisure',
     price: '₹6,400',
-    image: 'https://images.unsplash.com/photo-1603808033192-082d6f74a3e4?q=80&w=600', // high quality slide/shoe
+    image: '/khalifa_slides.png',
     description: 'Ergonomically contour-locked premium EVA slides in satin charcoal black, ensuring exceptional softness and structural durability.'
   },
   {

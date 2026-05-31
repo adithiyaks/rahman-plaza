@@ -3,25 +3,84 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@100;300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@100;300;400;500;700&family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@400;700;800&family=Syncopate:wght@400;700&display=swap');
 @import "tailwindcss";
+
+:root, .dark {
+  --bg-primary: #0a0a0a;
+  --text-primary: #f5f5f4;
+  --text-strong: #ffffff;
+  --text-muted: #a3a3a3; /* neutral-400 */
+  --border-primary: rgba(255, 255, 255, 0.05);
+  --border-strong: rgba(255, 255, 255, 0.15);
+  --card-bg: rgba(12, 13, 13, 0.8);
+  --card-bg-hover: rgba(20, 20, 20, 0.8);
+  --card-bg-solid: #0c0d0d;
+  --gold-accent: #c5a059;
+  --gold-accent-hover: #b08d48;
+  --glow-emerald: rgba(6, 78, 59, 0.4);
+  --glow-gold: rgba(197, 160, 89, 0.3);
+  --metrics-bg: rgba(13, 18, 17, 0.3);
+}
+
+.light {
+  --bg-primary: #faf9f6; /* Premium warm alabaster/ivory */
+  --text-primary: #1c1b18; /* Rich charcoal-sepia */
+  --text-strong: #0a0a0a;
+  --text-muted: #6b6a65; /* Sophisticated gray */
+  --border-primary: rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.18);
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --card-bg-hover: rgba(245, 244, 240, 0.9);
+  --card-bg-solid: #ffffff;
+  --gold-accent: #a37a3b; /* Rich dark gold for contrast */
+  --gold-accent-hover: #8c662f;
+  --glow-emerald: rgba(16, 133, 92, 0.15);
+  --glow-gold: rgba(163, 122, 59, 0.12);
+  --metrics-bg: rgba(245, 244, 240, 0.7);
+}
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Playfair Display", Georgia, serif;
   --font-sans-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-outfit: "Outfit", sans-serif;
+  --font-syne: "Syne", sans-serif;
+  --font-syncopate: "Syncopate", sans-serif;
+
+  --color-bg-primary: var(--bg-primary);
+  --color-text-primary: var(--text-primary);
+  --color-text-strong: var(--text-strong);
+  --color-text-muted: var(--text-muted);
+  --color-border-primary: var(--border-primary);
+  --color-border-strong: var(--border-strong);
+  --color-card-bg: var(--card-bg);
+  --color-card-bg-hover: var(--card-bg-hover);
+  --color-card-bg-solid: var(--card-bg-solid);
+  --color-gold-accent: var(--gold-accent);
+  --color-gold-accent-hover: var(--gold-accent-hover);
+  --color-glow-emerald: var(--glow-emerald);
+  --color-glow-gold: var(--glow-gold);
+  --color-metrics-bg: var(--metrics-bg);
 }
 
 /* Custom smooth scrolling and micro scrollbars */
 html {
   scroll-behavior: smooth;
-  background-color: #0a0a0a;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   color-scheme: dark;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+html.light {
+  color-scheme: light;
 }
 
 body {
-  background-color: #0a0a0a;
-  color: #f5f5f4;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 /* Atmospheric Elegant Dark Background Glow */
@@ -31,7 +90,7 @@ body {
   z-index: 0;
   opacity: 0.35;
   pointer-events: none;
-  background: radial-gradient(circle at 50% 20%, #064e3b 0%, #0a0a0a 70%);
+  background: radial-gradient(circle at 50% 20%, var(--glow-emerald) 0%, var(--bg-primary) 70%);
 }
 
 /* Webkit scrollbar customization to feel high-end and minimal */
@@ -41,23 +100,24 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: var(--bg-primary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1f1f1e;
+  background: var(--border-strong);
   border-radius: 9999px;
+  transition: background 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #c5a059;
+  background: var(--gold-accent);
 }
 
 /* Advanced visual text shadow utilities */
 .glow-text-emerald {
-  text-shadow: 0 0 12px rgba(6, 78, 59, 0.4);
+  text-shadow: 0 0 12px var(--glow-emerald);
 }
 
 .glow-text-gold {
-  text-shadow: 0 0 12px rgba(197, 160, 89, 0.3);
+  text-shadow: 0 0 12px var(--glow-gold);
 }

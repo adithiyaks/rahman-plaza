@@ -19,11 +19,29 @@ import CTA from './components/CTA';
 
 export default function App() {
   const [activeView, setActiveView] = useState<'home' | 'plaza' | 'palladium' | 'khalifa'>('home');
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+
+  // Force dark mode on microsites, use user theme on home page only
+  const currentTheme = activeView === 'home' ? theme : 'dark';
 
   // Automatically scroll to top when changing active views to keep experience luxurious
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
   }, [activeView]);
+
+  // Apply theme class to HTML document root
+  useEffect(() => {
+    const root = document.documentElement;
+    if (currentTheme === 'light') {
+      root.classList.add('light');
+      root.classList.remove('dark');
+      root.style.colorScheme = 'light';
+    } else {
+      root.classList.add('dark');
+      root.classList.remove('light');
+      root.style.colorScheme = 'dark';
+    }
+  }, [currentTheme]);
 
   const handleScrollToExplore = () => {
     const introEl = document.getElementById('brand-intro-section');
@@ -40,12 +58,24 @@ export default function App() {
     setActiveView(view);
   };
 
+  const handleToggleTheme = () => {
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+  };
+
   return (
     <SmoothScroll>
-      <div className="bg-[#0a0a0a] min-h-screen text-[#f5f5f4] antialiased overflow-x-clip selection:bg-[#c5a059] selection:text-black" id="app-container">
+      <div 
+        className="bg-bg-primary min-h-screen text-text-primary antialiased overflow-x-clip selection:bg-gold-accent selection:text-text-strong transition-colors duration-500" 
+        id="app-container"
+      >
         
         {/* Floating Luxurious Navbar */}
-        <Navbar activeView={activeView} onNavigate={handleNavigate} />
+        <Navbar 
+          activeView={activeView} 
+          onNavigate={handleNavigate} 
+          theme={theme} 
+          onToggleTheme={handleToggleTheme} 
+        />
 
         {/* Dynamic Screen Routing Render with AnimatePresence Page Transitions */}
         <div className="relative min-h-screen flex flex-col justify-between">
@@ -63,19 +93,23 @@ export default function App() {
                 <Hero 
                   onExploreClick={handleScrollToExplore} 
                   onNavigateToBranch={handleBranchSelect} 
+                  theme={theme}
                 />
 
                 {/* 2. Editorial Legacy Brand Intro */}
                 <BrandIntro />
 
                 {/* 2.5. Full Screen Building Scroll Showcase & Shop Reveal */}
-                <BuildingShowcase onSelectBranch={handleBranchSelect} />
+                <BuildingShowcase 
+                  onSelectBranch={handleBranchSelect} 
+                  theme={theme}
+                />
 
                 {/* 3. Premium Patron Testimonials */}
-                <Testimonials />
+                <Testimonials theme={theme} />
 
                 {/* 4. Interactive Call to Action & VIP Concierge Booking */}
-                <CTA />
+                <CTA theme={theme} />
               </motion.main>
             )}
 
@@ -99,7 +133,7 @@ export default function App() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.6, ease: 'easeOut' }}
-                className="w-full pt-16"
+                className="w-full pt-16 bg-[#f7eed5]"
               >
                 <PalladiumMicrosite onBackToOverview={() => handleNavigate('home')} />
               </motion.main>
@@ -112,7 +146,7 @@ export default function App() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.6, ease: 'easeOut' }}
-                className="w-full pt-16"
+                className="w-full pt-16 bg-[#2d1c12]"
               >
                 <KhalifaMicrosite onBackToOverview={() => handleNavigate('home')} />
               </motion.main>
@@ -120,7 +154,7 @@ export default function App() {
           </AnimatePresence>
 
           {/* Unified High-concept Footer */}
-          <Footer onNavigate={handleNavigate} />
+          <Footer onNavigate={handleNavigate} theme={theme} />
         </div>
       </div>
     </SmoothScroll>

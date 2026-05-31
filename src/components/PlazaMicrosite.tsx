@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
-  X, Eye, ClipboardList, MoveRight, Layers, Sparkles, CheckCircle2, BookmarkCheck, ArrowLeftRight 
+  X, Eye, ClipboardList, MoveRight, Layers, Sparkles, CheckCircle2, BookmarkCheck, ArrowLeftRight, ArrowUpRight 
 } from 'lucide-react';
 import { PLAZA_FLOORS } from '../data';
 import { Floor } from '../types';
@@ -15,14 +15,159 @@ interface PlazaMicrositeProps {
   onBackToOverview: () => void;
 }
 
+const FIRST_FLOOR_CATALOG = [
+  {
+    category: "Travel Luggage",
+    icon: "🧳",
+    items: [
+      { name: "Premium Hard Shell Cabin Trolley 20\"", price: "₹2,499" },
+      { name: "Premium Hard Shell Medium Trolley 24\"", price: "₹3,499" },
+      { name: "Premium Hard Shell Large Trolley 28\"", price: "₹4,999" },
+      { name: "ABS Textured Travel Suitcase", price: "₹3,299" },
+      { name: "Polycarbonate Luxury Luggage Set", price: "₹8,999" },
+      { name: "Kids Cartoon Trolley Bag", price: "₹2,299" },
+      { name: "Spider-Themed Kids Trolley", price: "₹2,499" },
+      { name: "Soft-Shell Trolley Suitcase", price: "₹2,799" },
+    ]
+  },
+  {
+    category: "Backpacks & School Bags",
+    icon: "🎒",
+    items: [
+      { name: "Trekking Backpack 60L", price: "₹2,999" },
+      { name: "Hiking Backpack 45L", price: "₹2,499" },
+      { name: "Premium Laptop Backpack", price: "₹1,499" },
+      { name: "Student School Backpack", price: "₹799" },
+      { name: "Casual Travel Backpack", price: "₹1,199" },
+      { name: "College Daypack", price: "₹999" },
+      { name: "Water-Resistant Backpack", price: "₹1,699" },
+      { name: "Multi-Compartment Backpack", price: "₹1,399" },
+    ]
+  },
+  {
+    category: "Travel & Duffel Bags",
+    icon: "👜",
+    items: [
+      { name: "Floral Travel Duffel Bag", price: "₹1,299" },
+      { name: "Weekend Travel Duffel Bag", price: "₹1,499" },
+      { name: "Executive Travel Holdall", price: "₹1,799" },
+      { name: "Waterproof Travel Bag", price: "₹1,999" },
+      { name: "Sports Duffel Bag", price: "₹1,399" },
+      { name: "Premium Gym Bag", price: "₹1,299" },
+    ]
+  },
+  {
+    category: "Women's Handbags",
+    icon: "👜",
+    items: [
+      { name: "Women's Leather Tote Bag", price: "₹1,799" },
+      { name: "Premium Office Handbag", price: "₹1,599" },
+      { name: "Designer Shoulder Bag", price: "₹1,299" },
+      { name: "Fashion Sling Bag", price: "₹699" },
+      { name: "Ladies Crossbody Bag", price: "₹899" },
+      { name: "Premium PU Leather Handbag", price: "₹1,499" },
+      { name: "Daily Carry Tote Bag", price: "₹999" },
+      { name: "Casual Shopping Bag", price: "₹599" },
+    ]
+  },
+  {
+    category: "Wallets & Purses",
+    icon: "👛",
+    items: [
+      { name: "Men's Leather Wallet", price: "₹499" },
+      { name: "RFID Leather Wallet", price: "₹799" },
+      { name: "Women's Wallet Clutch", price: "₹699" },
+      { name: "Card Holder Wallet", price: "₹299" },
+      { name: "Coin Purse", price: "₹199" },
+      { name: "Key Organizer Pouch", price: "₹249" },
+    ]
+  },
+  {
+    category: "Caps & Fashion Accessories",
+    icon: "🧢",
+    items: [
+      { name: "Baseball Cap", price: "₹299" },
+      { name: "Sports Cap", price: "₹399" },
+      { name: "Premium Cotton Cap", price: "₹499" },
+      { name: "Fashion Snapback Cap", price: "₹599" },
+      { name: "Casual Everyday Cap", price: "₹349" },
+    ]
+  },
+  {
+    category: "Fashion Jewelry",
+    icon: "💎",
+    items: [
+      { name: "Fashion Necklace Set", price: "₹499" },
+      { name: "Artificial Jewelry Set", price: "₹799" },
+      { name: "Designer Earrings Collection", price: "₹299" },
+      { name: "Fashion Bracelet Set", price: "₹249" },
+      { name: "Premium Jewelry Gift Set", price: "₹999" },
+    ]
+  },
+  {
+    category: "Lunch Boxes & Food Containers",
+    icon: "🍱",
+    items: [
+      { name: "Stainless Steel Lunch Box", price: "₹699" },
+      { name: "Kids Lunch Box Set", price: "₹399" },
+      { name: "Insulated Lunch Box", price: "₹699" },
+      { name: "School Lunch Container", price: "₹299" },
+      { name: "Premium Food Storage Box", price: "₹499" },
+    ]
+  },
+  {
+    category: "Water Bottles & Flasks",
+    icon: "💧",
+    items: [
+      { name: "Stainless Steel Water Bottle", price: "₹499" },
+      { name: "Thermal Water Bottle", price: "₹599" },
+      { name: "Vacuum Flask Bottle", price: "₹799" },
+      { name: "Kids Water Bottle", price: "₹299" },
+      { name: "Sports Water Bottle", price: "₹399" },
+    ]
+  },
+  {
+    category: "Gift & Utility Items",
+    icon: "🎁",
+    items: [
+      { name: "Decorative Clutch Purse", price: "₹599" },
+      { name: "Gift Pouch Collection", price: "₹199" },
+      { name: "Household Storage Container", price: "₹299" },
+      { name: "Plastic Utility Basket", price: "₹149" },
+      { name: "Stationery Organizer", price: "₹199" },
+      { name: "Kids Storage Box", price: "₹249" },
+    ]
+  }
+];
+
 export default function PlazaMicrosite({ onBackToOverview }: PlazaMicrositeProps) {
-  const [activeFloorId, setActiveFloorId] = useState<number>(1);
+  const [activeFloorId, setActiveFloorId] = useState<number | null>(null);
   const [selectedGalleryFloor, setSelectedGalleryFloor] = useState<Floor | null>(null);
   const [selectedItemsFloor, setSelectedItemsFloor] = useState<Floor | null>(null);
   const [galleryImageIdx, setGalleryImageIdx] = useState<number>(0);
+  const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
+
+  const toggleCategory = (category: string) => {
+    setExpandedCategories(prev => ({
+      ...prev,
+      [category]: !prev[category]
+    }));
+  };
 
   // Active Floor Details
   const activeFloor = PLAZA_FLOORS.find(f => f.id === activeFloorId) || PLAZA_FLOORS[0];
+
+  // Lock body scroll when modals are active to prevent double scroll or background scroll
+  useEffect(() => {
+    if (selectedItemsFloor || selectedGalleryFloor) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [selectedItemsFloor, selectedGalleryFloor]);
 
   // Helper images for floor galleries (using elegant, related Unsplash placeholders)
   const getFloorExtraImages = (floorId: number) => {
@@ -77,11 +222,11 @@ export default function PlazaMicrosite({ onBackToOverview }: PlazaMicrositeProps
           <img
             src="https://images.unsplash.com/photo-1582037928867-67709ff3577d?q=80&w=1920"
             alt="Rahman Plaza Retail Facade"
-            className="w-full h-full object-cover scale-105 brightness-[0.2] saturate-50 animate-pulse pointer-events-none"
+            className="w-full h-full object-cover scale-110 brightness-[0.45] saturate-[0.8] opacity-80 transition-transform duration-[20s] hover:scale-100 pointer-events-none"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a0a0a]/70 to-[#0a0a0a]" />
-          <div className="absolute inset-0 bg-gradient-to-tr from-[#064e3b]/20 via-transparent to-[#0a0a0a]/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/30 via-[#0a0a0a]/65 to-[#0a0a0a]" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-[#064e3b]/35 via-transparent to-[#c5a059]/15" />
         </div>
 
         {/* Content */}
@@ -97,7 +242,7 @@ export default function PlazaMicrosite({ onBackToOverview }: PlazaMicrositeProps
               </span>
             </div>
             
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-extralight tracking-[0.12em] uppercase font-sans mb-6">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-normal tracking-[0.12em] uppercase font-sans mb-6">
               RAHMAN <span className="text-[#c5a059] block sm:inline italic font-serif text-[0.9em] font-normal leading-none mt-2 sm:mt-0">PLAZA</span>
             </h1>
             
@@ -120,151 +265,118 @@ export default function PlazaMicrosite({ onBackToOverview }: PlazaMicrositeProps
       <section className="py-24 px-6 sm:px-12 max-w-7xl mx-auto border-t border-white/5" id="floor-showcase-section">
         
         {/* Header Label */}
-        <div className="max-w-3xl mb-16 sm:mb-24">
-          <div className="flex items-center gap-2 text-[#c5a059] mb-3">
-            <Layers className="h-4 w-4" />
-            <span className="text-[9px] font-mono uppercase tracking-[0.2em] font-semibold">Luxury Floor Space Showcases</span>
-          </div>
-          <h2 className="text-3xl sm:text-5xl font-serif text-white tracking-tight">
-            Vertical Curator Tour
+        <div className="max-w-3xl mx-auto text-center mb-16 sm:mb-24">
+          <h2 className="text-4xl sm:text-6xl font-light text-white tracking-tight font-sans mb-4">
+            Vertical <span className="font-serif italic text-[#c5a059] font-normal">Grandeur</span>
           </h2>
-          <p className="text-sm text-neutral-400 font-light mt-3 max-w-xl">
-            Sift through five distinct levels of retail opulence. Hover over a level on the left to reveal its digital catalog preview on the right.
+          <p className="text-sm sm:text-base text-neutral-400 font-light max-w-2xl mx-auto leading-relaxed">
+            Five curated floors, each an immersion into distinct realms of luxury, fashion, and heritage. Hover to explore the vertical architecture.
           </p>
         </div>
 
-        {/* DOUBLE SIDED GRID */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-stretch">
-          
-          {/* LEFT SIDE: Floor Level Vertical Selector Button Lists */}
-          <div className="lg:col-span-5 flex flex-col justify-between">
-            <div className="space-y-4" id="floor-buttons-list">
-              {PLAZA_FLOORS.map((floor) => {
-                const isActive = activeFloorId === floor.id;
-                return (
-                  <div
-                    key={floor.id}
-                    onMouseEnter={() => setActiveFloorId(floor.id)}
-                    className={`group/item border-b border-white/5 pb-5 pt-3 cursor-pointer transition-all duration-300 relative ${
-                      isActive ? 'border-[#c5a059]/30 pl-4' : 'hover:pl-2'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-baseline gap-5">
-                        <span className={`font-mono text-xs ${isActive ? 'text-[#c5a059]' : 'text-neutral-600 group-hover/item:text-neutral-400'}`}>
-                          0{floor.id}
-                        </span>
-                        <div>
-                          <h3 className={`text-lg sm:text-2xl font-serif tracking-tight transition-colors duration-300 ${
-                            isActive ? 'text-[#c5a059] font-medium' : 'text-neutral-400 group-hover/item:text-white'
-                          }`}>
-                            {floor.level}
-                          </h3>
-                          <p className={`text-[10px] font-mono tracking-widest uppercase transition-colors mt-0.5 ${
-                            isActive ? 'text-[#c5a059]' : 'text-neutral-500'
-                          }`}>
-                            {floor.name}
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Direction Icon on Hover */}
-                      <MoveRight className={`h-4 w-4 transition-all ${
-                        isActive ? 'text-[#c5a059] opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'
-                      }`} />
-                    </div>
-
-                    {/* Left Active Glow bar */}
-                    {isActive && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#c5a059] rounded-full" />
-                    )}
+        {/* SINGLE COLUMN ACCORDION */}
+        <div 
+          className="max-w-4xl mx-auto flex flex-col gap-4" 
+          id="floor-accordion-list"
+          onMouseLeave={() => setActiveFloorId(null)}
+        >
+          {PLAZA_FLOORS.map((floor) => {
+            const isActive = activeFloorId === floor.id;
+            return (
+              <div
+                key={floor.id}
+                onMouseEnter={() => setActiveFloorId(floor.id)}
+                onClick={() => setActiveFloorId(floor.id)}
+                className={`relative rounded-3xl border transition-all duration-700 ease-out overflow-hidden cursor-pointer flex flex-col justify-center ${
+                  isActive
+                    ? 'border-[#c5a059]/50 shadow-[0_25px_50px_rgba(197,160,89,0.12)] bg-[#100f0e]/60 min-h-[380px] sm:min-h-[440px] scale-[1.01]'
+                    : 'border-white/5 bg-[#121110]/15 hover:border-[#c5a059]/20 hover:bg-[#121110]/25 min-h-[5.5rem] sm:min-h-[6rem]'
+                }`}
+              >
+                {/* Background Image with Blur on Active */}
+                {isActive && (
+                  <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                    <img
+                      src={floor.image}
+                      alt={floor.name}
+                      className="w-full h-full object-cover scale-100 blur-[2px] brightness-[0.35] saturate-[0.85] contrast-105 transition-all duration-700"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-[#0a0a0a]/40" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/90 via-[#0a0a0a]/40 to-[#0a0a0a]/75" />
                   </div>
-                );
-              })}
-            </div>
+                )}
 
-            {/* Micro Details preview of currently hovered floor */}
-            <div className="mt-8 pt-6 border-t border-white/5 bg-[#0d1211]/30 p-5 rounded-2xl border border-white/5 flex flex-col justify-between">
-              <div>
-                <span className="text-[9px] font-mono text-[#c5a059] uppercase tracking-widest block mb-2 font-bold">
-                  Active Showcase • {activeFloor.level}
-                </span>
-                <span className="text-sm font-sans italic text-neutral-300 block mb-3 font-semibold">
-                  "{activeFloor.tagline}"
-                </span>
-                <p className="text-xs text-neutral-450 leading-relaxed font-light">
-                  {activeFloor.description}
-                </p>
-                
-                {/* Highlights list */}
-                <div className="mt-4 space-y-1.5">
-                  {activeFloor.highlights.map((hlt, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-[11px] text-neutral-300">
-                      <CheckCircle2 className="h-3 w-3 text-[#c5a059] shrink-0" />
-                      <span>{hlt}</span>
+                <div className="relative z-10 p-6 sm:p-8 flex flex-col justify-between w-full h-full flex-grow">
+                  {/* Top Bar Layout (Always Visible) */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    {/* Left: Floor ID and Name */}
+                    <div className="flex items-baseline gap-6">
+                      <span className="font-serif italic text-xl sm:text-2xl text-[#c5a059]">
+                        Floor 0{floor.id}
+                      </span>
+                      <h3 className={`text-base sm:text-lg tracking-wide transition-colors duration-300 font-sans ${
+                        isActive ? 'text-white font-medium' : 'text-neutral-300'
+                      }`}>
+                        {floor.name}
+                      </h3>
                     </div>
-                  ))}
+
+                    {/* Right: Subtext/Tagline */}
+                    <div className="text-left sm:text-right">
+                      <span className={`text-[10px] font-mono tracking-widest uppercase transition-colors ${
+                        isActive ? 'text-[#c5a059]' : 'text-neutral-400'
+                      }`}>
+                        {floor.tagline}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Expanded Content (Visible only when Active) */}
+                  <AnimatePresence initial={false}>
+                    {isActive && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                        className="mt-6 pt-6 border-t border-white/5 flex flex-col md:flex-row md:items-end justify-between gap-6 overflow-hidden"
+                      >
+                        {/* Left: Description */}
+                        <p className="text-xs sm:text-sm text-neutral-200 leading-relaxed font-light max-w-xl">
+                          {floor.description}
+                        </p>
+
+                        {/* Right: Action Buttons */}
+                        <div className="flex gap-3 shrink-0">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleOpenGallery(floor);
+                            }}
+                            className="rounded-full bg-white/5 border border-white/10 hover:border-[#c5a059]/40 text-[10px] font-mono tracking-widest uppercase px-5 py-2.5 text-white flex items-center justify-center gap-2 transition-all hover:bg-white/10 cursor-pointer"
+                            id={`view-btn-lvl-${floor.id}`}
+                          >
+                            <ArrowUpRight className="h-3.5 w-3.5 text-[#c5a059]" /> VIEW
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedItemsFloor(floor);
+                            }}
+                            className="rounded-full bg-[#c5a059]/10 text-[#c5a059] border border-[#c5a059]/20 hover:border-[#c5a059]/40 text-[10px] font-mono tracking-widest uppercase px-5 py-2.5 flex items-center justify-center gap-2 font-semibold transition-all hover:bg-[#c5a059]/20 cursor-pointer"
+                            id={`see-items-btn-lvl-${floor.id}`}
+                          >
+                            <ClipboardList className="h-3.5 w-3.5" /> SEE ITEMS
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </div>
-
-              {/* TWO BUTTONS AT BOTTOM */}
-              <div className="flex gap-4 mt-6">
-                <button
-                  onClick={() => handleOpenGallery(activeFloor)}
-                  className="flex-1 rounded-xl bg-[#0a0a0a] border border-white/5 hover:border-[#c5a059]/40 text-[10px] font-mono tracking-widest uppercase py-3 text-white flex items-center justify-center gap-2 transition-all hover:bg-[#0a0a0a]/80 hover:shadow-[0_8px_20px_rgba(197,160,89,0.08)] pointer-events-auto cursor-pointer"
-                  id={`view-btn-lvl-${activeFloor.id}`}
-                >
-                  <Eye className="h-3.5 w-3.5 text-[#c5a059]" /> View Gallery
-                </button>
-                <button
-                  onClick={() => setSelectedItemsFloor(activeFloor)}
-                  className="flex-1 rounded-xl bg-[#c5a059] text-[#0a0a0a] text-[10px] font-mono tracking-widest uppercase py-3 flex items-center justify-center gap-2 font-semibold transition-all hover:bg-[#d6b26a] hover:shadow-[0_8px_20px_rgba(197,160,89,0.25)] pointer-events-auto cursor-pointer"
-                  id={`see-items-btn-lvl-${activeFloor.id}`}
-                >
-                  <ClipboardList className="h-3.5 w-3.5" /> See Items
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* RIGHT SIDE: Cinematic Image Crossfading Previews */}
-          <div className="lg:col-span-7 flex flex-col justify-center">
-            <div className="relative rounded-3xl overflow-hidden bg-[#0d0d0d] aspect-video lg:aspect-[4/3] border border-white/5 shadow-2xl group">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeFloorId}
-                  initial={{ opacity: 0, scale: 1.05 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.8, ease: 'easeOut' }}
-                  className="absolute inset-0"
-                >
-                  <img
-                    src={activeFloor.image}
-                    alt={activeFloor.name}
-                    className="w-full h-full object-cover brightness-50 contrast-105 saturate-50 transition-transform duration-1000 group-hover:scale-105"
-                    referrerPolicy="no-referrer"
-                    id={`floor-preview-img-lvl-${activeFloor.id}`}
-                  />
-                  
-                  {/* Subtle color overlay mesh */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-[#0a0a0a]/20" />
-                  
-                  {/* Display text overlay */}
-                  <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end">
-                    <div>
-                      <span className="text-[10px] font-mono text-[#c5a059] tracking-wider block">LEVEL 0{activeFloor.id}</span>
-                      <h4 className="text-xl sm:text-2xl font-serif text-white font-medium">{activeFloor.name}</h4>
-                    </div>
-                    {/* Floor Label overlay */}
-                    <div className="bg-[#0a0a0a]/90 backdrop-blur-md border border-white/5 px-3.5 py-1 rounded-lg">
-                      <span className="text-xs font-mono font-semibold tracking-wider text-[#c5a059]">{activeFloor.level}</span>
-                    </div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </section>
 
@@ -342,6 +454,7 @@ export default function PlazaMicrosite({ onBackToOverview }: PlazaMicrositeProps
                initial={{ scale: 0.95, y: 15 }}
                animate={{ scale: 1, y: 0 }}
                exit={{ scale: 0.95, y: 15 }}
+               data-lenis-prevent
                className="bg-[#0a0a0a]/95 border border-[#c5a059]/20 rounded-3xl w-full max-w-2xl p-6 sm:p-8 max-h-[85vh] overflow-y-auto shadow-[0_30px_70px_rgba(197,160,89,0.06)] relative"
              >
                {/* Corner Close button */}
@@ -363,66 +476,123 @@ export default function PlazaMicrosite({ onBackToOverview }: PlazaMicrositeProps
                  <h4 className="text-xs font-mono text-neutral-500 uppercase tracking-widest mt-1">{selectedItemsFloor.name}</h4>
                </div>
 
-               {/* Directory sections */}
-               <div className="space-y-6">
-                 {/* 1. Curated Categories */}
-                 <div>
-                   <span className="block text-[9px] font-mono uppercase tracking-widest text-[#c5a059] mb-2 font-medium">Primary Categories:</span>
-                   <div className="flex flex-wrap gap-2">
-                     {selectedItemsFloor.categories.map((cat, idx) => (
-                       <span key={idx} className="bg-[#c5a059]/10 text-[#c5a059] border border-[#c5a059]/20 px-3 py-1 rounded-md text-xs font-sans">
-                         {cat}
-                       </span>
-                     ))}
-                   </div>
-                 </div>
+                {/* Directory sections */}
+                {selectedItemsFloor.id === 1 ? (
+                  /* Custom 1st Floor Product Catalog Accordion */
+                  <div className="space-y-4">
+                    <div className="space-y-3">
+                      {FIRST_FLOOR_CATALOG.map((catGroup) => {
+                        const isOpen = !!expandedCategories[catGroup.category];
+                        return (
+                          <div 
+                            key={catGroup.category} 
+                            className="border border-white/5 rounded-2xl overflow-hidden bg-[#121110]/30 transition-colors hover:border-[#c5a059]/25"
+                          >
+                            {/* Toggle Header Button */}
+                            <button
+                              onClick={() => toggleCategory(catGroup.category)}
+                              className="w-full px-5 py-4 flex items-center justify-between text-left transition-colors hover:bg-white/5 cursor-pointer"
+                            >
+                              <div className="flex items-center gap-3">
+                                <span className="text-lg select-none">{catGroup.icon}</span>
+                                <span className="text-white text-sm font-semibold tracking-wide font-sans">{catGroup.category}</span>
+                              </div>
+                              <span className="text-[#c5a059] font-mono text-xs font-medium">
+                                {isOpen ? 'COLLAPSE —' : 'EXPAND +'}
+                              </span>
+                            </button>
 
-                 {/* 2. Premium Partner Brands */}
-                 <div>
-                   <span className="block text-[9px] font-mono uppercase tracking-widest text-[#c5a059] mb-2 font-medium">Curated Brands:</span>
-                   <div className="flex flex-wrap gap-2">
-                     {selectedItemsFloor.brands.map((brand, idx) => (
-                       <span key={idx} className="bg-white/5 text-white border border-white/10 px-3 py-1 rounded-md text-xs font-sans">
-                         {brand}
-                       </span>
-                     ))}
-                   </div>
-                 </div>
+                            {/* Items List */}
+                            <AnimatePresence initial={false}>
+                              {isOpen && (
+                                <motion.div
+                                  initial={{ height: 0, opacity: 0 }}
+                                  animate={{ height: 'auto', opacity: 1 }}
+                                  exit={{ height: 0, opacity: 0 }}
+                                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                                  className="overflow-hidden border-t border-white/5 bg-black/20"
+                                >
+                                  <div className="p-4 divide-y divide-white/5">
+                                    {catGroup.items.map((item, idx) => (
+                                      <div 
+                                        key={idx} 
+                                        className="flex items-center justify-between py-3 px-2 rounded-lg hover:bg-white/5 transition-colors"
+                                      >
+                                        <span className="text-xs text-neutral-300 font-light font-sans">{item.name}</span>
+                                        <span className="text-xs text-[#c5a059] font-mono font-medium">{item.price}</span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : (
+                  /* Standard items list layout for other floors */
+                  <div className="space-y-6">
+                    {/* 1. Curated Categories */}
+                    <div>
+                      <span className="block text-[9px] font-mono uppercase tracking-widest text-[#c5a059] mb-2 font-medium">Primary Categories:</span>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedItemsFloor.categories.map((cat, idx) => (
+                          <span key={idx} className="bg-[#c5a059]/10 text-[#c5a059] border border-[#c5a059]/20 px-3 py-1 rounded-md text-xs font-sans">
+                            {cat}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
 
-                 {/* 3. Featured Materials */}
-                 <div>
-                   <span className="block text-[9px] font-mono uppercase tracking-widest text-[#c5a059] mb-2 font-medium">Curated Materials:</span>
-                   <div className="flex flex-wrap gap-2">
-                     {selectedItemsFloor.materials.map((mat, idx) => (
-                       <span key={idx} className="bg-[#121110]/50 text-neutral-450 border border-white/5 px-3 py-1 rounded-md text-xs font-mono font-light">
-                         🛠️ {mat}
-                       </span>
-                     ))}
-                   </div>
-                 </div>
+                    {/* 2. Premium Partner Brands */}
+                    <div>
+                      <span className="block text-[9px] font-mono uppercase tracking-widest text-[#c5a059] mb-2 font-medium">Curated Brands:</span>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedItemsFloor.brands.map((brand, idx) => (
+                          <span key={idx} className="bg-white/5 text-white border border-white/10 px-3 py-1 rounded-md text-xs font-sans">
+                            {brand}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
 
-                 {/* 4. Deep Product Details List */}
-                 <div className="border-t border-white/5 pt-5 mt-6">
-                   <span className="block text-[9px] font-mono uppercase tracking-widest text-[#c5a059] mb-3 font-semibold">Featured Specialty Items:</span>
-                   <div className="space-y-4 shadow-sm" id="specialty-items-list">
-                     {selectedItemsFloor.details.map((item, idx) => (
-                       <div key={idx} className="p-4 rounded-2xl bg-[#121110]/30 border border-white/5 flex flex-col justify-between hover:border-[#c5a059]/20 transition-all">
-                         <div className="flex justify-between items-start mb-1.5 font-light">
-                           <h5 className="text-white text-sm font-sans font-semibold tracking-wide">{item.name}</h5>
-                           <span className="bg-[#c5a059]/10 text-[#c5a059] text-[9px] font-mono font-medium px-2 py-0.5 rounded border border-[#c5a059]/10 uppercase tracking-widest">
-                             {item.category}
-                           </span>
-                         </div>
-                         <p className="text-xs text-neutral-450 leading-relaxed font-light">{item.description}</p>
-                         <div className="flex gap-4 mt-3 text-[10px] font-mono text-neutral-500">
-                           <span>Brands: <span className="text-neutral-300">{item.brands.join(', ')}</span></span>
-                           <span>Materials: <span className="text-neutral-300">{item.materials.join(', ')}</span></span>
-                         </div>
-                       </div>
-                     ))}
-                   </div>
-                 </div>
-               </div>
+                    {/* 3. Featured Materials */}
+                    <div>
+                      <span className="block text-[9px] font-mono uppercase tracking-widest text-[#c5a059] mb-2 font-medium">Curated Materials:</span>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedItemsFloor.materials.map((mat, idx) => (
+                          <span key={idx} className="bg-[#121110]/50 text-neutral-450 border border-white/5 px-3 py-1 rounded-md text-xs font-mono font-light">
+                            🛠️ {mat}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* 4. Deep Product Details List */}
+                    <div className="border-t border-white/5 pt-5 mt-6">
+                      <span className="block text-[9px] font-mono uppercase tracking-widest text-[#c5a059] mb-3 font-semibold">Featured Specialty Items:</span>
+                      <div className="space-y-4 shadow-sm" id="specialty-items-list">
+                        {selectedItemsFloor.details.map((item, idx) => (
+                          <div key={idx} className="p-4 rounded-2xl bg-[#121110]/30 border border-white/5 flex flex-col justify-between hover:border-[#c5a059]/20 transition-all">
+                            <div className="flex justify-between items-start mb-1.5 font-light">
+                              <h5 className="text-white text-sm font-sans font-semibold tracking-wide">{item.name}</h5>
+                              <span className="bg-[#c5a059]/10 text-[#c5a059] text-[9px] font-mono font-medium px-2 py-0.5 rounded border border-[#c5a059]/10 uppercase tracking-widest">
+                                {item.category}
+                              </span>
+                            </div>
+                            <p className="text-xs text-neutral-450 leading-relaxed font-light">{item.description}</p>
+                            <div className="flex gap-4 mt-3 text-[10px] font-mono text-neutral-500">
+                              <span>Brands: <span className="text-neutral-300">{item.brands.join(', ')}</span></span>
+                              <span>Materials: <span className="text-neutral-300">{item.materials.join(', ')}</span></span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                {/* Back CTA Button */}
                <div className="mt-8 border-t border-white/5 pt-5 text-right">

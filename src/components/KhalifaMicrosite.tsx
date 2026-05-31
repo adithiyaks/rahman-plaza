@@ -29,7 +29,7 @@ export default function KhalifaMicrosite({ onBackToOverview }: KhalifaMicrositeP
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-[#f5f5f4] selection:bg-[#c5a059] selection:text-black font-sans">
+    <div className="min-h-screen bg-[#2d1c12] text-[#f5f5f4] selection:bg-[#c5a059] selection:text-black font-sans">
       
       {/* 1. CINEMATIC STREETWEAR HERO */}
       <section className="relative h-[80vh] w-full flex items-center justify-start overflow-hidden px-6 sm:px-12 md:px-20">
@@ -38,12 +38,12 @@ export default function KhalifaMicrosite({ onBackToOverview }: KhalifaMicrositeP
           <img
             src="/khalifa.png"
             alt="Futuristic high-performance industrial sneakers"
-            className="w-full h-full object-cover scale-102 brightness-[0.16] saturate-[0.6] contrast-125"
+            className="w-full h-full object-cover scale-102 brightness-[0.45] saturate-[0.8] contrast-110"
             referrerPolicy="no-referrer"
           />
           {/* Subtle linear border line */}
           <div className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-[#c5a059] via-[#c5a059]/40 to-transparent shadow-[0_0_15px_rgba(197,160,89,0.2)] pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/85 to-[#0a0a0a]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#2d1c12]/50 to-[#2d1c12]" />
           
           {/* Subtle tech patterns overlay */}
           <div className="absolute inset-0 opacity-5 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[size:100%_4px,6px_100%]" />
@@ -79,7 +79,7 @@ export default function KhalifaMicrosite({ onBackToOverview }: KhalifaMicrositeP
             <div className="flex flex-wrap gap-4 mt-8">
               <button
                 onClick={onBackToOverview}
-                className="text-xs font-mono text-[#c5a059] hover:text-[#c5a059] uppercase tracking-widest cursor-pointer flex items-center gap-2 border border-white/5 hover:border-[#c5a059]/30 px-6 py-3 bg-[#0a0a0a]/40 hover:bg-[#0a0a0a]/80 transition-all rounded-sm"
+                className="text-xs font-mono text-[#c5a059] hover:text-[#c5a059] uppercase tracking-widest cursor-pointer flex items-center gap-2 border border-white/5 hover:border-[#c5a059]/30 px-6 py-3 bg-[#2d1c12]/40 hover:bg-[#2d1c12]/80 transition-all rounded-sm"
                 id="khalifa-back-btn"
               >
                 <ArrowLeftRight className="h-3.5 w-3.5" /> Core Overview
@@ -115,10 +115,10 @@ export default function KhalifaMicrosite({ onBackToOverview }: KhalifaMicrositeP
                 key={item.id}
                 whileHover={{ y: -6 }}
                 onClick={() => setSelectedFootwear(item)}
-                className="bg-[#121110]/30 border border-white/5 hover:border-[#c5a059]/30 rounded-xl overflow-hidden cursor-pointer flex flex-col justify-between h-[450px] p-3 relative group transition-all duration-300"
+                className="bg-[#1c110a]/70 border border-white/5 hover:border-[#c5a059]/30 rounded-xl overflow-hidden cursor-pointer flex flex-col justify-between h-[450px] p-3 relative group transition-all duration-300"
               >
                 {/* Image Section */}
-                <div className="relative overflow-hidden rounded-lg bg-[#0a0a0a] h-56 flex items-center justify-center">
+                <div className="relative overflow-hidden rounded-lg bg-[#1c110a] h-56 flex items-center justify-center">
                   <img
                     src={item.image}
                     alt={item.name}
@@ -202,7 +202,7 @@ export default function KhalifaMicrosite({ onBackToOverview }: KhalifaMicrositeP
             </div>
           </div>
 
-          <div className="relative rounded-2xl overflow-hidden aspect-video bg-[#0a0a0a] border border-white/5">
+          <div className="relative rounded-2xl overflow-hidden aspect-video bg-[#1c110a] border border-white/5">
             <img
               src="https://images.unsplash.com/photo-1552346154-21d32810aba3?q=80&w=800"
               alt="Close-up sole analysis"
@@ -220,7 +220,7 @@ export default function KhalifaMicrosite({ onBackToOverview }: KhalifaMicrositeP
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-[#0a0a0af2] backdrop-blur-md flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-[#1c110af2] backdrop-blur-md flex items-center justify-center p-4"
             id="footwear-spec-modal"
           >
             {/* Dark industrial metal themed popup container */}
@@ -228,12 +228,12 @@ export default function KhalifaMicrosite({ onBackToOverview }: KhalifaMicrositeP
               initial={{ scale: 0.95, y: 15 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 15 }}
-              className="bg-[#0a0a0a]/95 border border-[#c5a059]/25 rounded-2xl w-full max-w-xl p-6 sm:p-8 shadow-[0_30px_70px_rgba(197,160,89,0.06)] relative"
+              className="bg-[#2d1c12]/95 border border-[#c5a059]/25 rounded-2xl w-full max-w-xl p-6 sm:p-8 shadow-[0_30px_70px_rgba(197,160,89,0.06)] relative"
             >
               {/* Close Button */}
               <button
                 onClick={() => setSelectedFootwear(null)}
-                className="absolute top-6 right-6 h-9 w-9 rounded-full bg-[#0a0a0a] border border-white/5 text-neutral-450 hover:text-[#c5a059] flex items-center justify-center transition-colors pointer-events-auto cursor-pointer"
+                className="absolute top-6 right-6 h-9 w-9 rounded-full bg-[#2d1c12] border border-white/5 text-neutral-450 hover:text-[#c5a059] flex items-center justify-center transition-colors pointer-events-auto cursor-pointer"
                 id="close-footwear-spec-modal"
               >
                 <X className="h-4 w-4" />
@@ -249,7 +249,7 @@ export default function KhalifaMicrosite({ onBackToOverview }: KhalifaMicrositeP
 
               {/* Specs and content */}
               <div className="space-y-4 text-sm font-sans mb-6 text-neutral-300">
-                <div className="rounded-xl overflow-hidden aspect-video bg-[#121110] border border-white/5">
+                <div className="rounded-xl overflow-hidden aspect-video bg-[#1c110a] border border-white/5">
                   <img
                     src={selectedFootwear.image}
                     alt={selectedFootwear.name}
@@ -262,7 +262,7 @@ export default function KhalifaMicrosite({ onBackToOverview }: KhalifaMicrositeP
                 </p>
 
                 {/* Specs elements */}
-                <div className="grid grid-cols-2 gap-3 mt-4 text-xs font-mono border-t border-white/5 pt-4 bg-[#121110]/50 p-3 rounded-lg">
+                <div className="grid grid-cols-2 gap-3 mt-4 text-xs font-mono border-t border-white/5 pt-4 bg-[#1c110a]/60 p-3 rounded-lg">
                   <div>
                     <span className="text-neutral-500 uppercase">Aesthetic Style:</span>
                     <p className="text-[#c5a059] font-medium">{selectedFootwear.category}</p>
@@ -286,7 +286,7 @@ export default function KhalifaMicrosite({ onBackToOverview }: KhalifaMicrositeP
               <div className="mt-6 flex gap-3">
                 <button
                   onClick={() => setSelectedFootwear(null)}
-                  className="flex-1 rounded-sm border border-white/5 hover:border-[#c5a059]/30 text-xs font-mono tracking-widest uppercase py-3.5 bg-[#0a0a0a]/40 text-[#c5a059] hover:text-white transition-all cursor-pointer"
+                  className="flex-1 rounded-sm border border-white/5 hover:border-[#c5a059]/30 text-xs font-mono tracking-widest uppercase py-3.5 bg-[#2d1c12]/40 text-[#c5a059] hover:text-white transition-all cursor-pointer"
                 >
                   Return
                 </button>

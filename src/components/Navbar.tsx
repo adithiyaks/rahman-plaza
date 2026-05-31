@@ -5,14 +5,16 @@
 
 import React from 'react';
 import { motion } from 'motion/react';
-import { Menu, X, Landmark, Compass, Award, PhoneCall } from 'lucide-react';
+import { Menu, X, Landmark, Compass, Award, PhoneCall, Sun, Moon } from 'lucide-react';
 
 interface NavbarProps {
   activeView: 'home' | 'plaza' | 'palladium' | 'khalifa';
   onNavigate: (view: 'home' | 'plaza' | 'palladium' | 'khalifa') => void;
+  theme: 'light' | 'dark';
+  onToggleTheme: () => void;
 }
 
-export default function Navbar({ activeView, onNavigate }: NavbarProps) {
+export default function Navbar({ activeView, onNavigate, theme, onToggleTheme }: NavbarProps) {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const getThemeStyles = () => {
@@ -34,11 +36,19 @@ export default function Navbar({ activeView, onNavigate }: NavbarProps) {
       case 'khalifa':
         return {
           border: 'border-white/10',
-          bg: 'bg-[#0a0a0a]/90',
+          bg: 'bg-[#2d1c12]/90',
           textActive: 'text-white font-bold',
           indicator: 'bg-white',
         };
-      default:
+      default: // 'home'
+        if (theme === 'light') {
+          return {
+            border: 'border-black/5',
+            bg: 'bg-white/60',
+            textActive: 'text-gold-accent',
+            indicator: 'bg-gold-accent',
+          };
+        }
         return {
           border: 'border-white/5',
           bg: 'bg-[#0a0a0a]/60',
@@ -48,7 +58,9 @@ export default function Navbar({ activeView, onNavigate }: NavbarProps) {
     }
   };
 
-  const theme = getThemeStyles();
+  const navTheme = getThemeStyles();
+  const isLightHome = activeView === 'home' && theme === 'light';
+  const inactiveTextColor = isLightHome ? 'text-neutral-500 hover:text-black' : 'text-neutral-400 hover:text-white';
 
   const navItems = [
     { id: 'home', label: 'Overview', icon: Compass },
@@ -65,7 +77,7 @@ export default function Navbar({ activeView, onNavigate }: NavbarProps) {
       className="fixed top-0 left-0 w-full z-50 px-4 sm:px-8 py-4 pointer-events-none"
     >
       <div 
-        className={`max-w-6xl mx-auto rounded-full border ${theme.border} ${theme.bg} backdrop-blur-xl transition-all duration-500 pointer-events-auto px-6 sm:px-8 py-3 flex items-center justify-between shadow-2xl`}
+        className={`max-w-6xl mx-auto rounded-full border ${navTheme.border} ${navTheme.bg} backdrop-blur-xl transition-all duration-500 pointer-events-auto px-6 sm:px-8 py-3 flex items-center justify-between shadow-2xl`}
       >
         {/* LOGO */}
         <div 
@@ -73,19 +85,19 @@ export default function Navbar({ activeView, onNavigate }: NavbarProps) {
           className="flex items-center gap-3 cursor-pointer group"
           id="nav-logo"
         >
-          <div className="relative w-9 h-9 rounded-full overflow-hidden bg-[#121110] flex items-center justify-center border border-[#c5a059]/35 group-hover:border-[#c5a059]/60 transition-colors duration-300">
+          <div className="relative w-9 h-9 rounded-full overflow-hidden bg-card-bg-solid flex items-center justify-center border border-gold-accent/35 group-hover:border-gold-accent/60 transition-colors duration-300">
             <img 
               src="/logo.jpg" 
               alt="Rahman Plaza Logo" 
               className="w-full h-full object-cover select-none group-hover:scale-110 transition-transform duration-300"
             />
-            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#c5a059]/15 to-white/5 opacity-40 pointer-events-none" />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-gold-accent/15 to-white/5 opacity-40 pointer-events-none" />
           </div>
           <div>
-            <h1 className="font-sans text-sm tracking-widest text-[#f5f5f4] font-semibold group-hover:text-[#c5a059] transition-colors">
+            <h1 className="font-sans text-sm tracking-widest text-text-primary font-semibold group-hover:text-gold-accent transition-colors">
               RAHMAN
             </h1>
-            <p className="text-[9px] font-mono tracking-widest text-neutral-500 group-hover:text-neutral-300 transition-colors">
+            <p className="text-[9px] font-mono tracking-widest text-text-muted group-hover:text-text-strong transition-colors">
               EST. 1974 • JUBILEE
             </p>
           </div>
@@ -100,14 +112,14 @@ export default function Navbar({ activeView, onNavigate }: NavbarProps) {
                 key={item.id}
                 onClick={() => onNavigate(item.id)}
                 className={`relative py-1 text-xs tracking-widest uppercase transition-all duration-300 cursor-pointer ${
-                  isActive ? `${theme.textActive} font-medium` : 'text-neutral-400 hover:text-white'
+                  isActive ? `${navTheme.textActive} font-medium` : inactiveTextColor
                 }`}
               >
                 {item.label}
                 {isActive && (
                   <motion.div
                     layoutId="activeIndicator"
-                    className={`absolute bottom-0 left-0 w-full h-[1.5px] rounded-full ${theme.indicator}`}
+                    className={`absolute bottom-0 left-0 w-full h-[1.5px] rounded-full ${navTheme.indicator}`}
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -116,10 +128,23 @@ export default function Navbar({ activeView, onNavigate }: NavbarProps) {
           })}
         </nav>
 
-        {/* RECTANGLE DEBRIS ACTION BUTTON */}
+        {/* RECTANGLE DEBRIS ACTION BUTTON & THEME TOGGLE */}
         <div className="hidden md:flex items-center gap-2">
-          <div className="h-4 w-[1px] bg-neutral-800 mr-2" />
-          <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest">
+          {activeView === 'home' && (
+            <>
+              <button
+                onClick={onToggleTheme}
+                className={`p-1.5 rounded-full transition-colors cursor-pointer pointer-events-auto mr-1 ${
+                  theme === 'light' ? 'hover:bg-neutral-100 text-neutral-500 hover:text-black' : 'hover:bg-neutral-800 text-neutral-400 hover:text-white'
+                }`}
+                aria-label="Toggle theme"
+              >
+                {theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+              </button>
+              <div className={`h-4 w-[1px] mr-2 ${theme === 'light' ? 'bg-neutral-200' : 'bg-neutral-850'}`} />
+            </>
+          )}
+          <span className="text-[10px] font-mono text-text-muted uppercase tracking-widest">
             Triplicane, CH
           </span>
           <span className="flex h-2 w-2 relative">
@@ -128,15 +153,30 @@ export default function Navbar({ activeView, onNavigate }: NavbarProps) {
           </span>
         </div>
 
-        {/* MOBILE MENU TOGGLE */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-neutral-300 hover:text-white focus:outline-none p-1 transition-colors pointer-events-auto"
-          aria-label="Toggle menu"
-          id="menu-toggle-btn"
-        >
-          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        {/* MOBILE MENU & THEME TOGGLE */}
+        <div className="flex items-center gap-2 md:hidden">
+          {activeView === 'home' && (
+            <button
+              onClick={onToggleTheme}
+              className={`p-1.5 rounded-full transition-colors cursor-pointer pointer-events-auto ${
+                theme === 'light' ? 'hover:bg-neutral-100 text-neutral-500 hover:text-black' : 'hover:bg-neutral-800 text-neutral-400 hover:text-white'
+              }`}
+              aria-label="Toggle theme"
+            >
+              {theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+            </button>
+          )}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className={`focus:outline-none p-1 transition-colors pointer-events-auto ${
+              isLightHome ? 'text-neutral-600 hover:text-black' : 'text-neutral-300 hover:text-white'
+            }`}
+            aria-label="Toggle menu"
+            id="menu-toggle-btn"
+          >
+            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {/* MOBILE NAV OVERLAY */}
@@ -145,14 +185,18 @@ export default function Navbar({ activeView, onNavigate }: NavbarProps) {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="absolute top-20 left-4 right-4 pointer-events-auto bg-black/95 md:hidden border border-neutral-800 rounded-3xl p-6 shadow-2xl flex flex-col gap-4 z-50 backdrop-blur-2xl"
+          className={`absolute top-20 left-4 right-4 pointer-events-auto md:hidden rounded-3xl p-6 flex flex-col gap-4 z-50 backdrop-blur-2xl border ${
+            isLightHome ? 'bg-white/95 border-neutral-200 shadow-xl text-neutral-900' : 'bg-black/95 border-neutral-800 shadow-2xl text-neutral-400'
+          }`}
           id="mobile-nav-popup"
         >
-          <div className="border-b border-neutral-900 pb-3 mb-2 flex items-center justify-between">
-            <span className="text-xs font-mono tracking-widest text-neutral-500 uppercase">
+          <div className={`border-b pb-3 mb-2 flex items-center justify-between ${isLightHome ? 'border-neutral-150' : 'border-neutral-900'}`}>
+            <span className={`text-xs font-mono tracking-widest uppercase ${isLightHome ? 'text-neutral-400' : 'text-neutral-500'}`}>
               Brand Navigation
             </span>
-            <span className="text-[10px] font-mono bg-emerald-950 text-emerald-400 px-2.5 py-0.5 rounded-full border border-emerald-500/20 font-semibold uppercase animate-pulse">
+            <span className={`text-[10px] font-mono px-2.5 py-0.5 rounded-full border font-semibold uppercase animate-pulse ${
+              isLightHome ? 'bg-emerald-50 text-emerald-600 border-emerald-200' : 'bg-emerald-950 text-emerald-400 border-emerald-500/20'
+            }`}>
               Jubilee Year
             </span>
           </div>
@@ -169,21 +213,21 @@ export default function Navbar({ activeView, onNavigate }: NavbarProps) {
                 }}
                 className={`flex items-center gap-4 py-3 px-4 rounded-xl text-sm transition-all text-left uppercase tracking-wider ${
                   isActive
-                    ? 'bg-neutral-900 text-amber-400 border border-neutral-800'
-                    : 'text-neutral-400 hover:text-white hover:bg-neutral-950'
+                    ? (isLightHome ? 'bg-neutral-100 text-gold-accent border border-neutral-200' : 'bg-neutral-900 text-amber-400 border border-neutral-800')
+                    : (isLightHome ? 'text-neutral-500 hover:text-black hover:bg-neutral-50' : 'text-neutral-400 hover:text-white hover:bg-neutral-950')
                 }`}
               >
-                <Icon className={`h-4 w-4 ${isActive ? 'text-amber-400' : 'text-neutral-500'}`} />
+                <Icon className={`h-4 w-4 ${isActive ? (isLightHome ? 'text-gold-accent' : 'text-amber-400') : (isLightHome ? 'text-neutral-400' : 'text-neutral-500')}`} />
                 <span>{item.label}</span>
               </button>
             );
           })}
 
-          <div className="mt-4 pt-4 border-t border-neutral-900 flex flex-col gap-2 text-center">
-            <p className="text-[10px] font-mono text-neutral-500 uppercase tracking-wide">
+          <div className={`mt-4 pt-4 border-t flex flex-col gap-2 text-center ${isLightHome ? 'border-neutral-150' : 'border-neutral-900'}`}>
+            <p className={`text-[10px] font-mono uppercase tracking-wide ${isLightHome ? 'text-neutral-400' : 'text-neutral-500'}`}>
               No. 128, Rahman Plaza Rd, Triplicane, Chennai
             </p>
-            <p className="text-[10px] font-mono text-neutral-400">
+            <p className={`text-[10px] font-mono ${isLightHome ? 'text-neutral-550' : 'text-neutral-450'}`}>
               Open Daily: 10:00 AM — 10:00 PM
             </p>
           </div>
