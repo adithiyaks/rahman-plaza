@@ -16,6 +16,7 @@ import KhalifaMicrosite from './components/KhalifaMicrosite';
 import Footer from './components/Footer';
 import Testimonials from './components/Testimonials';
 import CTA from './components/CTA';
+import Team from './components/Team';
 
 export default function App() {
   const [activeView, setActiveView] = useState<'home' | 'plaza' | 'palladium' | 'khalifa'>('home');
@@ -104,6 +105,9 @@ export default function App() {
                   onSelectBranch={handleBranchSelect} 
                   theme={theme}
                 />
+
+                {/* Behind the Success - Team Section */}
+                <Team theme={theme} />
 
                 {/* 3. Premium Patron Testimonials */}
                 <Testimonials theme={theme} />
