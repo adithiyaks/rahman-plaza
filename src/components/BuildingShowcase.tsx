@@ -124,8 +124,8 @@ export default function BuildingShowcase({ onSelectBranch, theme }: BuildingShow
         };
       case 'khalifa':
         return {
-          bg: isLight ? 'bg-neutral-50/95 backdrop-blur-md' : 'bg-[#2d1c12]/90',
-          fade: isLight ? 'from-neutral-50' : 'from-[#2d1c12]',
+          bg: isLight ? 'bg-neutral-50/95 backdrop-blur-md' : 'bg-[#1a120d]/90',
+          fade: isLight ? 'from-neutral-50' : 'from-[#1a120d]',
           border: isLight ? 'border-neutral-200 hover:border-neutral-400' : 'border-white/5 hover:border-white/20',
           shd: isLight 
             ? (isHovered ? '0 20px 40px rgba(0, 0, 0, 0.08)' : 'none') 
@@ -239,7 +239,7 @@ export default function BuildingShowcase({ onSelectBranch, theme }: BuildingShow
                             <img 
                               src={branch.id === 'plaza' ? '/logo.jpg' : branch.id === 'palladium' ? '/logo2.png' : '/logo3.png'} 
                               alt={`${branch.name} Logo`} 
-                              className="h-5 w-5 rounded-full object-cover border border-white/10"
+                              className="h-7 w-7 rounded-full object-cover border border-white/10"
                             />
                           </div>
 

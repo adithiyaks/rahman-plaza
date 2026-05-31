@@ -146,7 +146,7 @@ export default function App() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.6, ease: 'easeOut' }}
-                className="w-full pt-16 bg-[#2d1c12]"
+                className="w-full pt-16 bg-[#1a120d]"
               >
                 <KhalifaMicrosite onBackToOverview={() => handleNavigate('home')} />
               </motion.main>

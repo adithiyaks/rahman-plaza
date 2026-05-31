@@ -36,7 +36,7 @@ export default function Navbar({ activeView, onNavigate, theme, onToggleTheme }:
       case 'khalifa':
         return {
           border: 'border-white/10',
-          bg: 'bg-[#2d1c12]/90',
+          bg: 'bg-[#0a0a0a]/80',
           textActive: 'text-white font-bold',
           indicator: 'bg-white',
         };
